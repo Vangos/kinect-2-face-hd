@@ -1,0 +1,15 @@
+﻿<Window x:Class="Kinect2FaceHD_NET.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Kinect 2 Face HD (.NET)" Height="350" Width="525" Closing="Window_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Padding="20" Text="Kinect 2 Face HD" />
+        <Viewbox Grid.Row="1">
+            <Canvas Name="canvas" Width="512" Height="424" />
+        </Viewbox>
+    </Grid>
+</Window>
