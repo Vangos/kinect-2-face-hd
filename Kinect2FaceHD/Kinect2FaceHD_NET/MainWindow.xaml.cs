@@ -41,25 +41,6 @@ namespace Kinect2FaceHD_NET
         public MainWindow()
         {
             InitializeComponent();
-
-            _sensor = KinectSensor.GetDefault();
-
-            if (_sensor != null)
-            {
-                _bodySource = _sensor.BodyFrameSource;
-                _bodyReader = _bodySource.OpenReader();
-                _bodyReader.FrameArrived += BodyReader_FrameArrived;
-
-                _faceSource = new HighDefinitionFaceFrameSource(_sensor);
-
-                _faceReader = _faceSource.OpenReader();
-                _faceReader.FrameArrived += FaceReader_FrameArrived;
-
-                _faceModel = new FaceModel();
-                _faceAlignment = new FaceAlignment();
-                
-                _sensor.Open();
-            }
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
