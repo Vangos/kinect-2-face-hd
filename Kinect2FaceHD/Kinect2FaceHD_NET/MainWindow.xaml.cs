@@ -1,25 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Microsoft.Kinect;
-using Microsoft.Kinect.Face;
+﻿    using System;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Windows;
+    using System.Windows.Media;
+    using System.Windows.Media.Media3D;
+    using Microsoft.Kinect;
+    using Microsoft.Kinect.Face;
+    using System.Windows.Shapes;
+    using System.Collections.Generic;
+    using System.Windows.Controls;
 
 namespace Kinect2FaceHD_NET
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private KinectSensor _sensor = null;
@@ -43,6 +35,28 @@ namespace Kinect2FaceHD_NET
             InitializeComponent();
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            _sensor = KinectSensor.GetDefault();
+
+            if (_sensor != null)
+            {
+                _bodySource = _sensor.BodyFrameSource;
+                _bodyReader = _bodySource.OpenReader();
+                _bodyReader.FrameArrived += BodyReader_FrameArrived;
+
+                _faceSource = new HighDefinitionFaceFrameSource(_sensor);
+
+                _faceReader = _faceSource.OpenReader();
+                _faceReader.FrameArrived += FaceReader_FrameArrived;
+
+                _faceModel = new FaceModel();
+                _faceAlignment = new FaceAlignment();
+
+                _sensor.Open();
+            }
+        }
+
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (_faceModel != null)
@@ -53,7 +67,7 @@ namespace Kinect2FaceHD_NET
 
             GC.SuppressFinalize(this);
         }
-        
+
         private void BodyReader_FrameArrived(object sender, BodyFrameArrivedEventArgs e)
         {
             using (var frame = e.FrameReference.AcquireFrame())
