@@ -10,6 +10,7 @@ Kinect version 2
 * [Kinect for Windows v2 sensor](http://amzn.to/1DQtBSV) or [Kinect for XBOX sensor](http://amzn.to/1AvdswC) with an [adapter](http://amzn.to/1wPJG55)
 * [Kinect for Windows SDK v2](http://www.microsoft.com/en-us/download/details.aspx?id=44561)
 * Windows 8.1 or higher
+* Visual Studio 2013 or higher
 * A dedicated USB 3 port
 
 ## Contributors
